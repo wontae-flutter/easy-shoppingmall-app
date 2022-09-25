@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
         '/index': (context) => IndexScreen(),
-        '/index': (context) => RegisterScreen(),
+        '/register': (context) => RegisterScreen(),
         '/item_search': (context) => ItemSearchScreen(),
         '/item_detail': (context) => ItemDetailScreen(),
       },

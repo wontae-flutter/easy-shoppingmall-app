@@ -58,8 +58,8 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.85,
-      height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 0.7,
+      height: MediaQuery.of(context).size.height * 0.05,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
