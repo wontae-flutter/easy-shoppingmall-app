@@ -7,7 +7,9 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Register Page"),
+        child: Column(
+          children: [],
+        ),
       ),
     );
   }
