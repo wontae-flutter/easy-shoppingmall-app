@@ -14,6 +14,8 @@ class HomeTab extends StatelessWidget {
 
     return FutureBuilder(
         //* future로 등록된 함수가 실행되는 동안 나머지 UI를 빌드한다(논블록어싱크)
+        //! 디테일과 검색에서 바로바로 반영이 되지 않는 이유:
+        //! Stream 자료구조를 사용하는 Provider를 사용하지 않고 Navigator로 받아오기 때문이다
         future: itemProvider.fetchItems(),
         builder: (context, snapshot) {
           if (itemProvider.items.length == 0) {

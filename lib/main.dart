@@ -3,6 +3,7 @@ import "package:provider/provider.dart";
 import "package:firebase_core/firebase_core.dart";
 import 'package:shoppingmall_app/providers/provider_auth.dart';
 import 'package:shoppingmall_app/providers/provider_item.dart';
+import 'package:shoppingmall_app/providers/provider_search_query.dart';
 import "./screens/screens.dart";
 
 void main() {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         //* 장바구니는 변화합니다
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         //* Search도 변화합니다. 한글자씩 늘어날때 변화하잖아요.
+        ChangeNotifierProvider(create: (_) => SearchQueryProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

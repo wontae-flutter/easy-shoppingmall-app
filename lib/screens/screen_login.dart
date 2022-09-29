@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:provider/provider.dart";
-import "../models/model_login.dart";
+import 'package:shoppingmall_app/providers/provider_login_field.dart';
+import '../models/model_login_field.dart';
 import '../providers/provider_auth.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,7 +10,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LoginFieldModel(),
+      create: (_) => LoginFieldProvider(),
       child: Scaffold(
         appBar: AppBar(
           title: Text("로그인 스크린"),
@@ -35,10 +36,11 @@ class LoginScreen extends StatelessWidget {
 class EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginField = Provider.of<LoginFieldModel>(context, listen: false);
+    final loginFieldProvider =
+        Provider.of<LoginFieldProvider>(context, listen: false);
     return TextField(
       onChanged: (email) {
-        loginField.setEmail(email);
+        loginFieldProvider.setEmail(email);
       },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -52,10 +54,11 @@ class EmailInput extends StatelessWidget {
 class PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginField = Provider.of<LoginFieldModel>(context, listen: false);
+    final loginFieldProvider =
+        Provider.of<LoginFieldProvider>(context, listen: false);
     return TextField(
       onChanged: (password) {
-        loginField.setPassword(password);
+        loginFieldProvider.setPassword(password);
       },
       obscureText: true,
       decoration: InputDecoration(
@@ -72,7 +75,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authClient = Provider.of<FirebaseAuthProvider>(context);
-    final loginField = Provider.of<LoginFieldModel>(context);
+    final loginFieldProvider = Provider.of<LoginFieldProvider>(context);
 
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
@@ -85,7 +88,8 @@ class LoginButton extends StatelessWidget {
         ),
         onPressed: () async {
           await authClient
-              .loginWithEmail(loginField.email, loginField.password)
+              .loginWithEmail(
+                  loginFieldProvider.email, loginFieldProvider.password)
               .then((loginStatus) async {
             if (loginStatus == AuthStatus.loginSuccess) {
               ScaffoldMessenger.of(context)

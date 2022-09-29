@@ -44,7 +44,7 @@ class _IndexScreenState extends State<IndexScreen> {
               setState(() {
                 _currentIndex = 0;
               });
-              Navigator.pushNamed(context, "/search");
+              Navigator.pushNamed(context, "/item_search");
             }
           });
         },

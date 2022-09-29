@@ -37,6 +37,13 @@ class ItemProvider with ChangeNotifier {
   }
 
   Future<void> search(String query) async {
+    //* 거래소 PnL: 검색하거나 다른 스크린으로 옮겨갈 때 값을 계속 업데이트하기 위함
+    items = await itemsReference.get().then((QuerySnapshot results) {
+      return results.docs.map((DocumentSnapshot snapshot) {
+        return Item.fromSnapShot(snapshot);
+      }).toList();
+    });
+
     //* 클로져덕분에 쓰지 않는데 notifyListers()가 state의 변화를 감지해야하기 때문에
     //* 요 스코프에 다시 한번 선언을 해주는 것입니다.
     searchItems = [];
@@ -49,6 +56,16 @@ class ItemProvider with ChangeNotifier {
         searchItems.add(item);
       }
     }
+    Print.green("전체 Items: ${items.map(
+      (item) {
+        Print.green(item.title);
+        Print.green(item.description);
+        Print.green(item.brand);
+        Print.green(item.price.toString());
+        Print.green(item.registerDate);
+        Print.white("-----");
+      },
+    )}");
     notifyListeners();
   }
 }

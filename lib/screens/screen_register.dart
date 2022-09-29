@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../providers/provider_auth.dart';
-import '../models/model_register.dart';
+import '../models/model_register_field.dart';
 import "package:provider/provider.dart";
 
 class RegisterScreen extends StatelessWidget {
