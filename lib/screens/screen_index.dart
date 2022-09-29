@@ -16,7 +16,7 @@ class _IndexScreenState extends State<IndexScreen> {
     HomeTab(),
     CartTab(),
     ItemSearchTab(),
-    MyPageTab(),
+    ProfileTab(),
   ];
 
   @override
@@ -24,7 +24,7 @@ class _IndexScreenState extends State<IndexScreen> {
     //* body 전체가 리빌드되어야합니다
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hello"),
+        title: Text("Flutter Shopping mall"),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -36,6 +36,16 @@ class _IndexScreenState extends State<IndexScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            //* appBar에 검색창을 놓고 싶은데 ItemSearchTab을 사용하면
+            //* appBar가 indexScreen의 것으로 유지되기 때문에
+            // 검색창에 한해서만 탭을 활용하는게 아니라 아예 SearchScreen으로 보내버린다.
+            //! 대부분의 쇼핑몰 앱에서 사용하는 방식
+            if (index == 1) {
+              setState(() {
+                _currentIndex = 0;
+              });
+              Navigator.pushNamed(context, "/search");
+            }
           });
         },
         items: [
