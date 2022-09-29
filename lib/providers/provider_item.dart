@@ -13,6 +13,8 @@ class ItemProvider with ChangeNotifier {
   //* reference: Collection(RDBMS의 모델)의 주소를 다루는 객체
   late CollectionReference itemsReference;
   List<Item> items = [];
+  //* 검색기능
+  List<Item> searchItems = [];
 
   ItemProvider({reference}) {
     itemsReference =
@@ -31,6 +33,22 @@ class ItemProvider with ChangeNotifier {
     });
     //* 굳이 리턴값으로 새로운 items를 반환하지 않더라도
     //* notifyListers()로 items의 변화를 실시간으로 보고하기 때문에 가능하다
+    notifyListeners();
+  }
+
+  Future<void> search(String query) async {
+    //* 클로져덕분에 쓰지 않는데 notifyListers()가 state의 변화를 감지해야하기 때문에
+    //* 요 스코프에 다시 한번 선언을 해주는 것입니다.
+    searchItems = [];
+    if (query.length == 0) {
+      return;
+    }
+
+    for (Item item in items) {
+      if (item.title.contains(query)) {
+        searchItems.add(item);
+      }
+    }
     notifyListeners();
   }
 }
