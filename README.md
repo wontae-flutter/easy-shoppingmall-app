@@ -10,4 +10,3 @@
 1. 상태관리(장바구니)/디자인패턴 - Provider
 2. 백엔드(회원/상품/장바구니) - Firebase
 3. 자동로그인 - Shared preference
-

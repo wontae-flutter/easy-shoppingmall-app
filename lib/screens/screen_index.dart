@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "../tabs/tabs.dart";
+import 'package:palestine_console/palestine_console.dart';
 
 //* 네비게이션 탭을 선택할 때마다 Body의 내용이 바뀌어야하므로 Stf을 사용합니다
 //* <Widget>tabs을 만들고 setState()로 currentIndex를 바꾼다는 것
@@ -14,8 +15,8 @@ class _IndexScreenState extends State<IndexScreen> {
   int _currentIndex = 0;
   final List<Widget> _tabs = [
     HomeTab(),
-    CartTab(),
     ItemSearchTab(),
+    CartTab(),
     ProfileTab(),
   ];
 

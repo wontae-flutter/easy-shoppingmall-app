@@ -2,10 +2,12 @@ import "dart:async";
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/provider_auth.dart';
+import '../providers/provider_cart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:palestine_console/palestine_console.dart';
 
 //* 로그인 여부에 의해 login/index스크린으로 네비게이팅하는 페이지
+//! 로그인 되어있는 상태면 장바구니 상태를 불러옵니다
 //* 빌드 이전에 moveScreen()으로 여부를 결정해야하므로 initState()를 사용할 수 있게 stf
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,6 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final authClient =
         Provider.of<FirebaseAuthProvider>(context, listen: false);
+    //* 장바구니는 처음 가져올 때는 ui가 변하지 않으니 listen: false
+
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+
     bool isLogin = prefs.getBool("isLogin") ?? false;
 
     if (isLogin) {
@@ -28,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       await authClient.loginWithEmail(email, password).then((loginStatus) {
         if (loginStatus == AuthStatus.loginSuccess) {
           Print.green("로그인 성공");
+          cartProvider.fetchCartItemsOrMakeCart(authClient.user);
         } else {
           Print.red("로그인 실패");
           isLogin = false;
